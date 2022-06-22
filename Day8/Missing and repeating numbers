@@ -1,0 +1,47 @@
+import java.util.ArrayList;
+
+public class Solution {
+
+    public static int[] missingAndRepeating(ArrayList<Integer> arr, int n) {
+        int[] ans = new int[2];
+        int xor = 0;
+        for(int i : arr){
+            xor ^= i;
+        }
+        for(int i=1;i<=n;i++){
+            xor ^= i;
+        }
+        int count = 0;
+        int rightmostset = xor & ~(xor-1); 
+        int bitset = 0 , bitNotset = 0;
+        for(int i : arr){
+            if((rightmostset&i) > 0){
+                bitset ^= i;
+            }
+            else{
+                bitNotset ^= i;
+            }
+        }
+        for(int i=1;i<=n;i++){
+            if((rightmostset&i) > 0){
+                bitset ^= i;
+            }
+            else{
+                bitNotset ^= i;
+            }
+        }
+        for(int i : arr){
+            if(i == bitset){
+                ans[0] = bitNotset;
+                ans[1] = bitset;
+                break;
+            }
+            if(i == bitNotset){
+                ans[0] = bitset;
+                ans[1] = bitNotset;
+                break;
+            }
+        }
+        return ans;
+    }
+}
