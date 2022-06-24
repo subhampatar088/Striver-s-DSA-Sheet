@@ -1,0 +1,11 @@
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode cA = headA;
+        ListNode cB = headB;
+        while(cA!=cB){ //will never take more than 2 iterations.See by visualizing eg
+            cA = (cA == null) ? headB : cA.next;
+            cB = (cB == null) ? headA : cB.next;
+        }//f no intersection then it will break when both reach null together
+        return cA;
+    }
+}
