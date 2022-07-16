@@ -1,0 +1,22 @@
+class Solution {
+    public Node cloneGraph(Node node) {
+        if(node == null) return null;
+        Node[] vis = new Node[101];
+        Arrays.fill(vis,null);
+        return dfs(node,vis);
+    }
+    Node dfs(Node node,Node[] vis){
+        Node newNode = new Node(node.val);
+        List<Node> newList = new ArrayList<>();
+        List<Node> list = node.neighbors;
+        vis[node.val] = newNode;
+        for(Node n : list){
+            if(vis[n.val] == null){
+                dfs(n,vis);
+            }
+            newList.add(vis[n.val]);
+        }
+        newNode.neighbors = new ArrayList<>(newList);    
+        return newNode;
+    }
+}
